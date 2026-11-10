@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مركز البيانات المصغّر — نجاح التجربة</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel-2: #1c2330;
+    --border: #2d3543;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --green: #3fb950;
+    --cyan: #39c5cf;
+    --amber: #d29922;
+    --mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(57,197,207,.12), transparent),
+      radial-gradient(ellipse 60% 40% at 50% 110%, rgba(63,185,80,.08), transparent);
+    color: var(--text);
+    font-family: 'Segoe UI', Tahoma, 'Noto Kufi Arabic', system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .wrap { width: 100%; max-width: 760px; }
+  header { text-align: center; margin-bottom: 28px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(63,185,80,.12); border: 1px solid rgba(63,185,80,.4);
+    color: var(--green); border-radius: 999px;
+    padding: 6px 18px; font-family: var(--mono); font-size: 13px;
+    margin-bottom: 18px;
+  }
+  .badge .dot {
+    width: 9px; height: 9px; border-radius: 50%; background: var(--green);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(63,185,80,.5);} 50% { box-shadow: 0 0 0 6px rgba(63,185,80,0);} }
+  h1 { font-size: clamp(1.6rem, 4vw, 2.3rem); font-weight: 800; letter-spacing: -.5px; line-height: 1.35; }
+  h1 .accent { color: var(--cyan); }
+  .sub { color: var(--muted); margin-top: 10px; font-size: 1rem; }
+
+  .card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 16px; padding: 22px 24px; margin-bottom: 16px;
+    box-shadow: 0 16px 40px rgba(0,0,0,.45);
+  }
+  .card h2 {
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card h2::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
+  dl.specs { display: grid; grid-template-columns: auto 1fr; gap: 8px 18px; font-size: .95rem; }
+  dl.specs dt { color: var(--muted); font-family: var(--mono); font-size: .82rem; padding-top: 2px; }
+  dl.specs dd { overflow-wrap: anywhere; }
+  dl.specs code {
+    font-family: var(--mono); background: var(--panel-2); border: 1px solid var(--border);
+    border-radius: 6px; padding: 1px 8px; font-size: .85em; color: var(--cyan);
+    direction: ltr; display: inline-block;
+  }
+
+  .diagram { text-align: center; }
+  .diagram svg { max-width: 100%; height: auto; }
+
+  .note {
+    border-inline-start: 3px solid var(--amber); background: rgba(210,153,34,.08);
+    border-radius: 8px; padding: 10px 14px; font-size: .88rem; color: #e3b95b; line-height: 1.7;
+  }
+  footer { text-align: center; color: var(--muted); font-family: var(--mono); font-size: 11px; margin-top: 22px; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header>
+    <div class="badge"><span class="dot"></span> HTTP 200 — الخدمة تعمل</div>
+    <h1>أنت الآن داخل <span class="accent">مركز بيانات مصغّر</span></h1>
+    <p class="sub">هذه الصفحة ليست على الإنترنت — إنها تُقدَّم من حاسوبك المنزلي نفسه عبر <code style="font-family:var(--mono);color:var(--cyan);direction:ltr;display:inline-block">nginx</code></p>
+  </header>
+
+  <section class="card">
+    <h2>مواصفات الخادم</h2>
+    <dl class="specs">
+      <dt>الخدمة</dt><dd>Nginx Reverse Proxy — يستمع على المنفذ <code>80</code></dd>
+      <dt>النطاق</dt><dd><code>mysite.local</code> → <code>192.168.0.4</code> (عبر dnsmasq)</dd>
+      <dt>المجلد</dt><dd><code>/var/www/mysite/index.html</code> — لاحظ: هاتفك لا يعرف أن الملف هنا!</dd>
+      <dt>نظام التشغيل</dt><dd>Ubuntu 24.04 LTS — tareq-HP-ZBook-15-G5</dd>
+      <dt>الشبكة</dt><dd><code>192.168.0.4/24</code> عبر <code>wlp0s20f3</code> (Wi-Fi محلي)</dd>
+    </dl>
+  </section>
+
+  <section class="card diagram">
+    <h2>رحلة طلبك الآن</h2>
+    <svg viewBox="0 0 720 190" role="img" aria-label="مسار الطلب من الهاتف إلى nginx">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#39c5cf"/>
+        </marker>
+        <marker id="arrowAmber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#d29922"/>
+        </marker>
+      </defs>
+
+      <!-- Phone -->
+      <g>
+        <rect x="8" y="55" width="92" height="80" rx="12" fill="#1c2330" stroke="#2d3543" stroke-width="1.5"/>
+        <rect x="26" y="70" width="56" height="38" rx="3" fill="#0d1117" stroke="#39c5cf" stroke-width="1.2"/>
+        <circle cx="54" cy="122" r="3.5" fill="#2d3543"/>
+        <text x="54" y="90" text-anchor="middle" fill="#39c5cf" font-size="10" font-family="monospace">الجوال</text>
+      </g>
+
+      <!-- Wi-Fi router -->
+      <g>
+        <rect x="178" y="66" width="86" height="58" rx="10" fill="#1c2330" stroke="#2d3543" stroke-width="1.5"/>
+        <path d="M206 88 a22 22 0 0 1 28 0 M212 98 a12 12 0 0 1 16 0" stroke="#8b949e" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <circle cx="221" cy="106" r="2.5" fill="#8b949e"/>
+        <text x="221" y="142" text-anchor="middle" fill="#8b949e" font-size="10" font-family="monospace">الراوتر</text>
+      </g>
+
+      <!-- Nginx -->
+      <g>
+        <rect x="352" y="48" width="110" height="94" rx="12" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+        <text x="407" y="88" text-anchor="middle" fill="#3fb950" font-size="15" font-weight="bold" font-family="monospace">nginx</text>
+        <text x="407" y="108" text-anchor="middle" fill="#8b949e" font-size="10" font-family="monospace">:80 → proxy</text>
+        <text x="407" y="161" text-anchor="middle" fill="#8b949e" font-size="10" font-family="monospace">يظهر للجوال</text>
+      </g>
+
+      <!-- Static site -->
+      <g>
+        <rect x="556" y="18" width="150" height="52" rx="10" fill="#1c2330" stroke="#2d3543" stroke-width="1.5"/>
+        <text x="631" y="40" text-anchor="middle" fill="#e6edf3" font-size="11" font-family="monospace">/var/www/mysite</text>
+        <text x="631" y="57" text-anchor="middle" fill="#8b949e" font-size="9" font-family="monospace">index.html (أنت هنا)</text>
+      </g>
+
+      <!-- Future API -->
+      <g opacity="0.75">
+        <rect x="556" y="120" width="150" height="52" rx="10" fill="none" stroke="#d29922" stroke-width="1.4" stroke-dasharray="5 4"/>
+        <text x="631" y="142" text-anchor="middle" fill="#d29922" font-size="11" font-family="monospace">Node API :3000</text>
+        <text x="631" y="159" text-anchor="middle" fill="#8b949e" font-size="9" font-family="monospace">المرحلة التالية (microservices)</text>
+      </g>
+
+      <!-- Arrows -->
+      <line x1="100" y1="95" x2="172" y2="95" stroke="#39c5cf" stroke-width="2" marker-end="url(#arrow)"/>
+      <line x1="264" y1="95" x2="346" y2="95" stroke="#39c5cf" stroke-width="2" marker-end="url(#arrow)"/>
+      <line x1="462" y1="68" x2="550" y2="44" stroke="#39c5cf" stroke-width="2" marker-end="url(#arrow)"/>
+      <line x1="462" y1="120" x2="550" y2="145" stroke="#d29922" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrowAmber)"/>
+    </svg>
+  </section>
+
+  <div class="note">
+    <strong>لاحظ ما لم تعرفه أنت كعميل:</strong> المتصفح طلب <code style="font-family:var(--mono);direction:ltr;display:inline-block">http://192.168.0.4/</code> — ولا يعرف أن الملف محفوظ في <code style="font-family:var(--mono)">/var/www/mysite</code>، ولا أن dnsmasq يترجم اسم <code style="font-family:var(--mono)">mysite.local</code>. هذا بالضبط ما يفعله الـ Reverse Proxy في معماريات الميكروسيرفيس: التوجيه داخلي، والعميل يرى واجهة واحدة فقط.
+  </div>
+
+  <footer>LOCAL PRODUCTION SIMULATION — MICROSERVICES LAB</footer>
+</main>
+</body>
+</html>
